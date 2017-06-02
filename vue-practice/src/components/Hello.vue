@@ -1,12 +1,22 @@
 <template>
   <div class="hello">
     <h1>{{ newmsg }}</h1>
-    <h2>Essential Links</h2>
+    <h2 @click.once='test'>Essential Links</h2>
     <ul>
       <li v-for='(item,key,index) in object'>
         {{ item }} + {{ key }} + {{ index }}
       </li>
     </ul>
+    <input v-model='name' placeholder='test'>
+    <p>{{ name }}</p>
+    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+    <label for="jack">Jack</label>
+    <input type="checkbox" id="john" value="John" v-model="checkedNames">
+    <label for="john">John</label>
+    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+    <label for="mike">Mike</label>
+    <br>
+    <span>Checked names: {{ checkedNames }}</span>
   </div>
 </template>
 
@@ -20,7 +30,9 @@ export default {
         FirstName: 'John',
         LastName: 'Doe',
         Age: 30
-      }
+      },
+      name:'',
+      checkedNames:[]
     }
   },
 
@@ -32,6 +44,11 @@ export default {
       set(data){
         this.msg = data+'lin';
       }
+    }
+  },
+  methods:{
+    test(){
+      alert(123);
     }
   }
   
