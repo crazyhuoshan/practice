@@ -1,67 +1,27 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const glob = require('glob');
-const webpackMerge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-module.exports = function (env) {
-  var _config = {
-    entry: '',
-    output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: './js/[name].js?[chunkhash]',
-      chunkFilename: './js/[id].js?[chunkhash]'
-    },
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          use: ['babel-loader']
-        },
-        {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader']
-          // use: ExtractTextPlugin.extract({
-          //   use: 'css-loader'
-          // })
-        }
-      ]
-    },
-    plugins: [],
-    devServer: {
-      contentBase: path.join(__dirname,'dist/pages'),
-      inline: true,//实时刷新
-      port: 9000,
-      compress: true
-    }
+module.exports = {
+  devtool: 'eval-source-map',
+  entry: path.join(__dirname, 'app.js'),
+  output: {
+    path: path.join(__dirname, '/dist'),
+    filename: 'bundle.js'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      }
+    ]
+  },
+  plugins: [
+        new webpack.HotModuleReplacementPlugin()//热模块替换插件
+    ],
+  devServer: {
+    contentBase: './dist',//默认webpack-dev-server会为根文件夹提供本地服务器，如果想为另外一个目录下的文件提供本地服务器，应该在这里设置其所在目录（本例设置到"build"目录）
+    inline: true,//设置为true，当源文件改变时会自动刷新页面
+    port: 8080//设置默认监听端口，如果省略，默认为"8080"
   }
-
-  var entries = glob.sync('./src/**/*.js'),
-      entriHtml = glob.sync('./src/**/*.html')
-  var entryJsList = {}
-  var entryHtmlList = {}
-  console.log(entries)
-  for(var _jsPath of entries){
-    var chunkJsName = _jsPath.split('/')[2] 
-    entryJsList[chunkJsName] = _jsPath
-  }
-  console.log(entryJsList)
-  for (var _path of entriHtml) {
-    var chunkName = _path.split('/')[2] 
-    entryHtmlList[chunkName] = _path
-    _config.plugins.push(new HtmlWebpackPlugin({
-      template: entryHtmlList[chunkName],
-      filename: './pages/'+ chunkName +'/' + chunkName + '.html',
-      chunks: [chunkName]
-    }))
-    //  _config.plugins.push(new ExtractTextPlugin({
-    //   filename: './css/' + chunkName + '.css',
-    //   allChunks: false
-    // }))
-  }
-  _config.entry = entryJsList;
-
-  return _config;
 }
