@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>贪吃蛇</title>
+    <style>
+        #app{
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <canvas id='app' width="500" height="500"></canvas>
+    <script>
+        var canvas = document.querySelector('#app');
+        var ctx = canvas.getContext('2d');
+        
+        ctx.beginPath();
+        ctx.fillRect(100,100,20,20);
+        ctx.closePath();
+
+       canvas.addEventListener('keydown',function(e){
+           console.log(e);
+       }) 
+    </script>
+</body>
+</html>
