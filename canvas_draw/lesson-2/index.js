@@ -26,3 +26,45 @@ function bezier(){
     ctx.stroke();
 }
 bezier();
+
+function demo1(){
+    ctx.beginPath();
+    ctx.moveTo(100,400);
+    ctx.lineTo(300,100);
+    ctx.lineTo(400,400);
+    ctx.stroke();
+
+    ctx.strokeStyle = 'red';
+    ctx.beginPath();
+    ctx.moveTo(100,400);
+    ctx.quadraticCurveTo(300, 100, 400, 400);
+    ctx.stroke();
+    
+}
+// demo1();
+
+function demo2(){
+    ctx.beginPath();
+    ctx.moveTo(100,400);
+    ctx.lineTo(200,100);
+    ctx.lineTo(300,130);
+    ctx.lineTo(400,400);
+    ctx.stroke();
+
+
+    ctx.strokeStyle = 'red';
+    ctx.beginPath();
+    ctx.moveTo(100,400);
+    ctx.bezierCurveTo(200,100,300,130,400,400);
+    ctx.stroke();
+    
+}
+// demo2();
+
+function demo3(){
+    ctx.moveTo(100,200);
+    ctx.quadraticCurveTo(180,100,260,200);
+    ctx.quadraticCurveTo(180,300,100,200)
+    ctx.stroke();
+}
+// demo3();
