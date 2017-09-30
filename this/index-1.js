@@ -26,6 +26,7 @@ getAge();//3333
 //构造函数 
 function People(city){
     this.city = city;
+    console.log(this);
 };
 
 var p = new People('suzhou');

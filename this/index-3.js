@@ -4,9 +4,10 @@
 var other = {
     test:'1234',
     fn:function(){
-        var self = this;
+        // var self = this;
         setTimeout(function(){
-            console.log(self.test);
+            // console.log(self.test);
+            console.log(this.test);
         },100)
     }
 }
