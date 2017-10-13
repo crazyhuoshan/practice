@@ -1,6 +1,6 @@
 const path = require('path');
 const glob = require('glob');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const htmlWebpackPlugin = require('html-webpack-plugin');
 
 var config = {
     output:{
@@ -19,7 +19,8 @@ for(var jsPath of jsList){
 }
 
 for(var htmlPath of htmlList){
-    
+    var htmlName = /.\/(src\/.*?\/*?)\.html/.exec(htmlPath)[1];
+    console.log(htmlName);
 }
 
 config['entry'] = jsEntry;
