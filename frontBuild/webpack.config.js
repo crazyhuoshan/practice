@@ -5,11 +5,16 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 var config = {
     output:{
         path:path.resolve(__dirname,'dist'),
-        filename:'[name].js'
+        filename:'[name].js',
+        publicPath:'/'
+    },
+    plugins:[],
+    devServer:{
+        contentBase:'./dist'
     }
 }
 
-var jsEntry = {},htmlEntry = {};
+var jsEntry = {};
 var jsList = glob.sync('./src/**/*.js');
 var htmlList = glob.sync('./src/**/*.html');
 
@@ -20,7 +25,11 @@ for(var jsPath of jsList){
 
 for(var htmlPath of htmlList){
     var htmlName = /.\/(src\/.*?\/*?)\.html/.exec(htmlPath)[1];
-    console.log(htmlName);
+    config['plugins'].push(new htmlWebpackPlugin({
+        filename:htmlPath,
+        template:htmlPath,
+        chunks:[htmlName]
+    }));
 }
 
 config['entry'] = jsEntry;
